@@ -1,29 +1,29 @@
 #!/bin/bash
-PSQL="psql --username=freecodecamp --dbname=<database_name> -t --no-align -c"
+PSQL="psql --username=freecodecamp --dbname=number_guess -t --no-align -c"
 
 #Get username
 echo "Enter your username:"
 read USERNAME
 
 #Check if user exist
-  USER_INFO=$($PSQL "SELECT user_id, games_played, best_games FROM users WHERE username='$USERNAME'")
+  USER_INFO=$($PSQL "SELECT user_id, games_played, best_game FROM users WHERE username='$USERNAME'")
 
-  if [[ -z USER_INFO ]] 
+  if [[ -z $USER_INFO ]] 
    then 
    #Add user
-   echo -e "\nWelcome, $USERNAME! It looks like this is your first time here.\n"
+   echo -e "\nWelcome, $USERNAME! It looks like this is your first time here."
    INSERT_USER=$($PSQL "INSERT INTO users(username) VALUES('$USERNAME')") 
    USER_ID=$($PSQL "SELECT user_id FROM users WHERE username='$USERNAME'")
   else
    #If user exists in the database 
 
-    IFS = "|" read USER_ID GAMES_PLAYED BEST_GAMES <<< "USER_INFO"
-   echo -e "\nWelcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAMES guesses."
+    IFS="|" read USER_ID GAMES_PLAYED BEST_GAME <<< "USER_INFO"
+   echo -e "\nWelcome back, $USERNAME! You have played $GAMES_PLAYED games, and your best game took $BEST_GAME guesses."
 
   fi
   # Generate the secrete number
     
-  SECRET_NUMBER=$(($RANDOM % 1000 + 1))
+  SECRET_NUMBER=$(( RANDOM % 1000 + 1))
   GUESS_COUNT=0
 
   #Guessing game
@@ -56,15 +56,15 @@ read USERNAME
 
    #Update the database
    GAMES_PLAYED=$(( GAMES_PLAYED + 1 ))
-   if [[ -z $BEST_GAMES || $GUESS_COUNT -lt $BEST_GAMES ]] 
+   if [[ -z $BEST_GAME || $GUESS_COUNT -lt $BEST_GAME ]] 
    then
-   BEST_GAMES=GUESS_COUNT
+   BEST_GAME=GUESS_COUNT
 
    fi
 
    #Record the game
    UPDATE_GAMES_PLAYED=$($PSQL "UPDATE users SET games_played = '$GAMES_PLAYED' WHERE username='$USERNAME'")
-   UPDATE_BEST_GAMES=$($PSQL "UPDATE users SET best_games = '$BEST_GAMES' WHERE username='$USERNAME'")
+   UPDATE_BEST_GAME=$($PSQL "UPDATE users SET best_games = '$BEST_GAME' WHERE username='$USERNAME'")
 
    #Insert games information
    INSERT_GAMES_INFO=$($PSQL "INSERT INTO games(user_id,guesses) VALUES('$USER_ID','$GUESS_COUNT'")
