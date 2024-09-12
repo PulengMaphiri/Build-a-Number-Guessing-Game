@@ -23,7 +23,7 @@ read USERNAME
   fi
   # Generate the secrete number
     
-  SECRET_NUMBER=$(( RANDOM % 1000 + 1))
+  SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
   GUESS_COUNT=0
 
   #Guessing game
@@ -42,7 +42,7 @@ read USERNAME
 
       if [[ $GUESS -lt $SECRET_NUMBER ]]
        then
-       ech -e "\nIt's higher than that, guess again:"
+       echo -e "\nIt's higher than that, guess again:"
 
        elif [[ $GUESS -gt $SECRET_NUMBER ]]
        ech -e "\nIt's lower than that, guess again:"
