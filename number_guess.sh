@@ -28,7 +28,7 @@ read USERNAME
 
      #Guessing game
      echo "\nGuess the secret number between 1 and 1000:"
-     While [[ $GUESS != $SECRET_NUMBER ]]
+     while [[ $GUESS != $SECRET_NUMBER ]];
      do
        read GUESS
         #Check if the number guessed is an integer
@@ -36,7 +36,6 @@ read USERNAME
         then
         echo -e "\nThat is not an integer, guess again:"
         fi
-
 
         ((GUESS_COUNT++))
 
@@ -47,7 +46,7 @@ read USERNAME
             elif [[ $GUESS -gt $SECRET_NUMBER ]]
              ech -e "\nIt's lower than that, guess again:"
           fi
-  done
+     done
 
   #If the user guesses right
    You guessed it in $GUESS_COUNT tries. The secret number was $SECRET_NUMBER. Nice job!
