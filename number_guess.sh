@@ -33,8 +33,8 @@ read USERNAME
        read GUESS
         #Check if the number guessed is an integer
         if [[ ! $GUESS =~ ^[0-9]+$ ]]
-        then
-        echo -e "\nThat is not an integer, guess again:"
+         then
+           echo -e "\nThat is not an integer, guess again:"
         fi
 
         ((GUESS_COUNT++))
@@ -43,8 +43,8 @@ read USERNAME
           then
            echo -e "\nIt's higher than that, guess again:"
 
-            elif [[ $GUESS -gt $SECRET_NUMBER ]]
-             ech -e "\nIt's lower than that, guess again:"
+          elif [[ $GUESS -gt $SECRET_NUMBER ]]
+             echo -e "\nIt's lower than that, guess again:"
           fi
      done
 
