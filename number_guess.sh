@@ -23,31 +23,30 @@ read USERNAME
   fi
   # Generate the secrete number
     
-  SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
-  GUESS_COUNT=0
+    SECRET_NUMBER=$(( RANDOM % 1000 + 1 ))
+     GUESS_COUNT=0
 
-  #Guessing game
-  echo "\nGuess the secret number between 1 and 1000:"
-  While [[ $GUESS != $SECRET_NUMBER ]]
-   do
-     read GUESS
-     #Check if the number guessed is an integer
-      if [[ ! $GUESS =~ ^[0-9]+$ ]]
-      then
-      echo -e "\nThat is not an integer, guess again:"
-      fi
+     #Guessing game
+     echo "\nGuess the secret number between 1 and 1000:"
+     While [[ $GUESS != $SECRET_NUMBER ]]
+     do
+       read GUESS
+        #Check if the number guessed is an integer
+        if [[ ! $GUESS =~ ^[0-9]+$ ]]
+        then
+        echo -e "\nThat is not an integer, guess again:"
+        fi
 
 
-      ((GUESS_COUNT++))
+        ((GUESS_COUNT++))
 
-      if [[ $GUESS -lt $SECRET_NUMBER ]]
-       then
-       echo -e "\nIt's higher than that, guess again:"
+        if [[ $GUESS -lt $SECRET_NUMBER ]]
+          then
+           echo -e "\nIt's higher than that, guess again:"
 
-       elif [[ $GUESS -gt $SECRET_NUMBER ]]
-       ech -e "\nIt's lower than that, guess again:"
-
-       fi
+            elif [[ $GUESS -gt $SECRET_NUMBER ]]
+             ech -e "\nIt's lower than that, guess again:"
+          fi
   done
 
   #If the user guesses right
